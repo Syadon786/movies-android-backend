@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb://localhost:27017/MoviesDB');
+mongoose.connect(process.env.DATABASE_URL);
 
 const movieSchema = mongoose.Schema({
     title: {
@@ -50,7 +51,7 @@ const movieSchema = mongoose.Schema({
 
 const Movie = mongoose.model('movie', movieSchema);
 
-exports.addMovieDetails = function(details) {
+exports.addMovieDetails = function(details, res) {
     const cast = [];
     details.cast.split(sep=',').forEach((member) => {
         const temp = member.split(sep='#');
@@ -71,5 +72,16 @@ exports.addMovieDetails = function(details) {
     });
     movie.save().then(() => {
         console.log("A new movie is added to the database.");
+        res.send("A new movie is added to the database.");
+    }).catch((err) => {
+        console.error(err);
+        res.send(err);
     });
 };
+
+exports.queryAllMovies = function(res) {
+    Movie.find({}, (err, movies) => {
+        if(err) return res.send(err);
+        res.send(movies);
+    });
+}

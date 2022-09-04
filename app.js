@@ -16,6 +16,9 @@ app.get('/addmovie', (req, res) => {
 });
 
 app.post('/addmovie', (req, res) => {
-    db.addMovieDetails(req.body);
-    res.send("Done");
+    db.addMovieDetails(req.body, res);
+});
+
+app.get('/movie/all', (req, res) => {
+    db.queryAllMovies(res);
 });
