@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
-const db = require(`${__dirname}/database.js`);
+const db = require(`./database.js`);
 
 app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,4 +15,7 @@ app.get('/addmovie', (req, res) => {
      res.render('addmovie', {});
 });
 
-
+app.post('/addmovie', (req, res) => {
+    db.addMovieDetails(req.body);
+    res.send("Done");
+});

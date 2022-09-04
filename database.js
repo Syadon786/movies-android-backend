@@ -49,3 +49,27 @@ const movieSchema = mongoose.Schema({
 });
 
 const Movie = mongoose.model('movie', movieSchema);
+
+exports.addMovieDetails = function(details) {
+    const cast = [];
+    details.cast.split(sep=',').forEach((member) => {
+        const temp = member.split(sep='#');
+        cast.push({actorName: temp[0],
+        characterName: temp[1]})
+    });
+    const movie = new Movie({
+        title: details.title,
+        released_year: details.released_year,
+        plot: details.plot,
+        genre: details.genres,
+        playtime: details.playtime,
+        director: details.director,
+        cost: details.cost,
+        profit: details.profit,
+        cast: cast,
+        poster: details.poster
+    });
+    movie.save().then(() => {
+        console.log("A new movie is added to the database.");
+    });
+};
