@@ -52,11 +52,10 @@ const movieSchema = mongoose.Schema({
 const Movie = mongoose.model('movie', movieSchema);
 
 exports.addMovieDetails = function(details, res) {
-    const cast = [];
-    details.cast.split(sep=',').forEach((member) => {
+    const cast = details.cast.split(sep=',').map((member) => {
         const temp = member.split(sep='#');
-        cast.push({actorName: temp[0],
-        characterName: temp[1]})
+        return {actorName: temp[0],
+        characterName: temp[1]};
     });
     const movie = new Movie({
         title: details.title,
