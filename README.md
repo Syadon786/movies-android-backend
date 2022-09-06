@@ -32,5 +32,8 @@ Database hosted with MongoDB Atlas on an AWS M0 sandbox cluster.
 #### Endpoints
 ##### /movie/all
 * Returns all available movies in JSON format.
-
+##### /movie/list
+* Returns only required fields for Android-Frontend's RecyclerView in JSON format
+##### /movie/:id
+* Returns movie data by specified id in JSON format
 Frontend: https://github.com/Syadon786/movies-android
