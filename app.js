@@ -22,3 +22,7 @@ app.post('/addmovie', (req, res) => {
 app.get('/movie/all', (req, res) => {
     db.queryAllMovies(res);
 });
+
+app.get('/movie/:id', (req, res) => {
+    db.queryMovieById(req.params.id, res);
+});

@@ -84,3 +84,10 @@ exports.queryAllMovies = function(res) {
         res.send(movies);
     });
 }
+
+exports.queryMovieById = function(id, res) {
+    Movie.find({_id: id}, (err, movie) => {
+        if(err) return res.send(err);
+        res.send(movie);
+    });
+};
