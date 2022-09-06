@@ -85,6 +85,12 @@ exports.queryAllMovies = function(res) {
     });
 }
 
+exports.queryMoviesForList = function(res) {
+    Movie.find({}, {_id: 1 , title : 1, released_year: 1, plot: 1, poster : 1}, (err, movies) => {
+        if(err) return res.send(err);
+        res.send(movies)});
+}
+
 exports.queryMovieById = function(id, res) {
     Movie.find({_id: id}, (err, movie) => {
         if(err) return res.send(err);
