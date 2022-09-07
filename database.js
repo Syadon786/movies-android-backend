@@ -97,3 +97,12 @@ exports.queryMovieById = function(id, res) {
         res.send(movie);
     });
 };
+
+exports.filterMovies = function(filter, res) {
+    Movie.find({$or: [{title: {$regex: filter, $options: "i"}}, 
+    {director: {$regex: filter, $options: "i"}}, 
+    {released_year: {$regex: filter, $options: "i"}}]}, (err, result) => {
+        if(err) return res.send(err);
+        res.send(result);
+    })
+}

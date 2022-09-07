@@ -27,6 +27,10 @@ app.get('/movie/list', (req, res) => {
     db.queryMoviesForList(res);
 });
 
+app.get('/movie/filter/:filter', (req, res) => {
+    db.filterMovies(req.params.filter, res);
+});
+
 app.get('/movie/:id', (req, res) => {
     db.queryMovieById(req.params.id, res);
 });
