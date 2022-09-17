@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import * as dotenv from "dotenv";
 import logger from "../logger";
-import Movie, {MovieDocument} from "./movie";
+import Movie, {AddMovieRequestBody, MovieDocument} from "./movie";
 
 dotenv.config({ path: `.env` });
 
@@ -23,7 +23,7 @@ export function connect() : Promise<void> {
 }
 
 
-export function addMovieDetails(details : any) : Promise<string | Error> {
+export function addMovieDetails(details : AddMovieRequestBody) : Promise<string | Error> {
     return new Promise((resolve, reject) =>{
         const cast = details.cast.split(',').map((member : string) => {
             const temp = member.split('#');
