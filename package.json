@@ -2,7 +2,7 @@
   "name": "android-movies-backend",
   "version": "1.0.0",
   "description": "Backend for android-movies project. ",
-  "main": "app.js",
+  "main": "src/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --config nodemon.json src/app.ts"
