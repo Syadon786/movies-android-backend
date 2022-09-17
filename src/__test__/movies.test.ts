@@ -19,6 +19,7 @@ beforeAll(async () => {
     })
 
 afterAll(async () => {
-    mongoose.disconnect();
+    await mongoose.disconnect();
+    await mongoose.connection.close();
 })    
 })
