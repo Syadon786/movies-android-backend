@@ -1,5 +1,6 @@
 import {Express, Request, Response} from 'express';
 import { addMovieDetails, queryAllMovies, queryMoviesForList, queryMovieById, filterMovies } from './db/database';
+import logger from './logger';
 
 export default function (app : Express) {
    app.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
@@ -14,7 +15,7 @@ export default function (app : Express) {
                 res.send(result);
             })
             .catch((err) => {
-                res.send(err);
+                res.status(400).send(`Could not insert the new movie to the database.`);
             });
    });
    
@@ -24,7 +25,7 @@ export default function (app : Express) {
                 res.send(result);
             })
             .catch((err) => {
-                res.send(err);
+                res.status(404).send(`Could not found any movie in the database.`);
             });
    });
    
@@ -34,7 +35,7 @@ export default function (app : Express) {
                 res.send(result);
             })
             .catch((err) => {
-                res.send(err);
+                res.status(404).send(`Could not found any movie in the database.`);
             });
    });
    
@@ -44,7 +45,7 @@ export default function (app : Express) {
                 res.send(result);
             })
             .catch((err) => {
-                res.send(err);
+                res.status(404).send(`No movie found with specified filters.`);
             });
    });
    
@@ -54,7 +55,7 @@ export default function (app : Express) {
                 res.send(result);
             })
             .catch((err) => {
-                res.send(err);
+                res.status(404).send(`Movie with id ${req.params.id} not found.`);
             });
    });
 }
