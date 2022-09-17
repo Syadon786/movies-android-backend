@@ -46,7 +46,7 @@ beforeAll(async () => {
     describe('get a movie by id', () => {
         describe('given the movie with specified id exists', () => {
             it('should return a 200 OK status', async () => {
-                const id : string = "6314db85afca4782eb65aa78";
+                const id : string = "filer";
                 const {body, statusCode} = await supertest(app)
                 .get(`/movie/${id}`);
 
