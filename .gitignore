@@ -1,0 +1,4 @@
+node_modules/
+posters/
+.env
+dist/
