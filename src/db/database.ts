@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import * as dotenv from "dotenv";
 import logger from "../logger";
-import Movie, {MovieDocument} from "./movie";
+import Movie, {AddMovieRequestBody, MovieDocument} from "./movie";
 
 dotenv.config({ path: `.env` });
 
@@ -23,7 +23,7 @@ export function connect() : Promise<void> {
 }
 
 
-export function addMovieDetails(details : any) : Promise<string | Error> {
+export function addMovieDetails(details : AddMovieRequestBody) : Promise<string> {
     return new Promise((resolve, reject) =>{
         const cast = details.cast.split(',').map((member : string) => {
             const temp = member.split('#');
@@ -52,7 +52,7 @@ export function addMovieDetails(details : any) : Promise<string | Error> {
     }) 
 };
 
-export function queryAllMovies() : Promise<Array<MovieDocument> | Error> {
+export function queryAllMovies() : Promise<Array<MovieDocument>> {
     return new Promise((resolve, reject) => {
         Movie.find({}, (err : Error, movies : Array<MovieDocument>) => {
             if(err) {
@@ -64,7 +64,7 @@ export function queryAllMovies() : Promise<Array<MovieDocument> | Error> {
     })
 }
 
-export function queryMoviesForList() : Promise<Array<MovieDocument> | Error>  {
+export function queryMoviesForList() : Promise<Array<MovieDocument>>  {
     return new Promise((resolve, reject) => {
         Movie.find({}, {_id: 1 , title : 1, released_year: 1, plot: 1, poster : 1}, (err : Error, movies : Array<MovieDocument>) => {
             if(err) {
@@ -76,9 +76,9 @@ export function queryMoviesForList() : Promise<Array<MovieDocument> | Error>  {
     })
 }
 
-export function queryMovieById(id : string) : Promise<MovieDocument | Error> {
+export function queryMovieById(id : string) : Promise<Array<MovieDocument>> {
     return new Promise((resolve, reject) => {
-        Movie.find({_id: id}, (err : Error, movie : MovieDocument) => {
+        Movie.find({_id: id}, (err : Error, movie : Array<MovieDocument>) => {
             if(err) {
                 logger.error(err);
                 return reject(err);
@@ -88,7 +88,7 @@ export function queryMovieById(id : string) : Promise<MovieDocument | Error> {
     })
 };
 
-export function filterMovies(filter : string) {
+export function filterMovies(filter : string) : Promise<Array<MovieDocument>> {
     return new Promise((resolve, reject) => {
         Movie.find({$or: [{title: {$regex: filter, $options: "i"}}, 
         {director: {$regex: filter, $options: "i"}}, 

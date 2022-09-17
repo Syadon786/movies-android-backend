@@ -42,7 +42,12 @@ export default function (app : Express) {
    app.get('/movie/filter/:filter', (req : Request, res : Response) => {
        filterMovies(req.params.filter)
             .then((result) => {
-                res.send(result);
+                if(result.length) {
+                    res.send(result);
+                }
+                else {
+                    res.status(404).send(`No movie found with specified filters.`);
+                }
             })
             .catch((err) => {
                 res.status(404).send(`No movie found with specified filters.`);
@@ -52,7 +57,12 @@ export default function (app : Express) {
    app.get('/movie/:id', (req : Request, res : Response) => {
        queryMovieById(req.params.id)
             .then((result) => {
-                res.send(result);
+                if(result.length) {
+                    res.send(result);                 
+                }
+                else {
+                    res.status(404).send(`Movie with id ${req.params.id} not found.`); 
+                }
             })
             .catch((err) => {
                 res.status(404).send(`Movie with id ${req.params.id} not found.`);

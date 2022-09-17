@@ -5,6 +5,19 @@ interface Actor {
     characterName: string;
 }
 
+export interface AddMovieRequestBody extends Express.Request {
+    title: string,
+    released_year: string,
+    plot: string,
+    genres: Array<string>,
+    playtime: string,
+    director: string,
+    cost: string,
+    profit: string,
+    cast: string,
+    poster: string
+}
+
 export interface MovieDocument extends mongoose.Document {
     title: string;
     released_year: string;
