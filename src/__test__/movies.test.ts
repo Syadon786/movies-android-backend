@@ -1,6 +1,7 @@
 import supertest from 'supertest'
 import createServer from "../utils/server"
 import {connect} from "../db/database"
+import mongoose from 'mongoose';
 
 const app = createServer();
 
@@ -16,4 +17,8 @@ beforeAll(async () => {
             });
         })
     })
+
+afterAll(async () => {
+    mongoose.disconnect();
+})    
 })
